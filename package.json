@@ -5,6 +5,7 @@
     "setup": "npm run setup:client && npm run setup:server",
     "setup:client": "cd bug-report.client && npm i",
     "setup:server": "cd bug-report.server && npm i",
-    "start": "node bug-report.server/index.js"
+    "start": "node bug-report.server/index.js",
+    "build": "cd bug-report.server && npm i"
   }
 }
