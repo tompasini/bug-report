@@ -24,7 +24,7 @@
           </router-link>
         </li> -->
       </ul>
-      <span class="navbar-text">
+      <!-- <span class="navbar-text">
         <button
           class="btn btn-outline-primary text-uppercase"
           @click="login"
@@ -64,7 +64,7 @@
             </div>
           </div>
         </div>
-      </span>
+      </span> -->
     </div>
   </nav>
 </template>
