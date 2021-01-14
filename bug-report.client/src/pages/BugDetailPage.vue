@@ -15,13 +15,11 @@
         </p>
         <p><b>Created Date: </b>{{ bug.createdAt }}</p>
         <p><b>Last Updated: </b>{{ bug.updatedAt }}</p>
-        <div v-if="bug.closed == false">
-          <!-- Button trigger modal -->
+        <!-- <div v-if="bug.closed == false">
           <button type="button" class="btn-warning" data-toggle="modal" data-target="#edit-bug">
             Edit
           </button>
 
-          <!-- Modal -->
           <div class="modal fade"
                id="edit-bug"
                tabindex="-1"
@@ -57,7 +55,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
         <div v-if="bug.closed == false">
           <button @click="closeBug(bug._id)" class="btn-danger">
             Close
