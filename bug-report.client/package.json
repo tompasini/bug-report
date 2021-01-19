@@ -11,7 +11,8 @@
     "@bcwdev/auth0provider-client": "0.0.3",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.2",
-    "jquery": "^3.5.0",
+    "jquery": "^3.5.1",
+    "jscore": "^1.0.9",
     "popper.js": "^1.16.1",
     "vue": "^3.0.0-0",
     "vue-router": "^4.0.0-0"

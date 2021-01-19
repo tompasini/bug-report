@@ -15,13 +15,18 @@
         </p>
         <p><b>Created Date: </b>{{ bug.createdAt }}</p>
         <p><b>Last Updated: </b>{{ bug.updatedAt }}</p>
-        <!-- <div v-if="bug.closed == false">
-          <button type="button" class="btn-warning" data-toggle="modal" data-target="#edit-bug">
+        <div v-if="bug.closed == false">
+          <button @click="showModal"
+                  type="button"
+                  class="btn-warning"
+                  data-target="#editBug"
+                  data-backdrop="false"
+          >
             Edit
           </button>
 
           <div class="modal fade"
-               id="edit-bug"
+               id="editBug"
                tabindex="-1"
                role="dialog"
                aria-labelledby="exampleModalLabel"
@@ -31,7 +36,7 @@
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title" id="exampleModalLabel">
-                    Modal title
+                    Edit Bug
                   </h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -39,15 +44,15 @@
                 </div>
                 <form class="form-group" @submit.prevent="editBug(bug._id)">
                   <div class="modal-body">
-                    <input type="text" class="form-control" placeholder="Title" required v-model="state.editedBug.title">
-                    <input type="text" class="form-control" placeholder="Description" required v-model="state.editedBug.description">
-                    <input type="text" class="form-control" placeholder="Reported By" required v-model="state.editedBug.reportedBy">
+                    <input type="text" class="form-control" required v-model="state.editedBug.title">
+                    <input type="text" class="form-control" required v-model="state.editedBug.description">
+                    <input type="text" class="form-control" required v-model="state.editedBug.reportedBy">
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn-secondary" data-dismiss="modal">
                       Close
                     </button>
-                    <button type="submit" class="btn-primary">
+                    <button id="save" type="submit" class="btn-primary">
                       Save changes
                     </button>
                   </div>
@@ -55,7 +60,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
         <div v-if="bug.closed == false">
           <button @click="closeBug(bug._id)" class="btn-danger">
             Close
@@ -94,17 +99,25 @@ import { AppState } from '../AppState'
 import { useRoute } from 'vue-router'
 import { bugService } from '../services/BugService'
 import { noteService } from '../services/NoteService'
+import $ from 'jquery'
 export default {
   name: 'Bug',
   setup() {
     const route = useRoute()
-    const state = reactive({
-      editedBug: {},
-      newNote: {}
-    })
     onMounted(async() => {
       await bugService.getActiveBug(route.params.id)
       await noteService.getBugNotes(route.params.id)
+      state.editedBug.title = AppState.activeBug.title
+      state.editedBug.description = AppState.activeBug.description
+      state.editedBug.reportedBy = AppState.activeBug.reportedBy
+    })
+    const state = reactive({
+      editedBug: {
+        title: AppState.activeBug.title,
+        description: AppState.activeBug.description,
+        reportedBy: AppState.activeBug.reportedBy
+      },
+      newNote: {}
     })
     return {
       state,
@@ -115,10 +128,14 @@ export default {
       },
       editBug(id) {
         bugService.editBug(id, state.editedBug)
+        $('#editBug').modal('toggle')
       },
       addNote(id) {
         noteService.addNote(id, state.newNote)
         state.newNote = {}
+      },
+      showModal() {
+        $('#editBug').modal('toggle')
       }
     }
   },

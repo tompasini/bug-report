@@ -36,7 +36,7 @@
                        placeholder="Enter your name here"
                        v-model="state.newBug.reportedBy"
                 >
-                <button type="submit" class="btn btn-success btn-block">
+                <button type="submit" class="btn-success btn-block">
                   Submit
                 </button>
               </form>
