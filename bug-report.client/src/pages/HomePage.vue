@@ -29,7 +29,7 @@
                        v-model="state.newBug.title"
                 >
                 <label for="">Describe the issue:</label>
-                <textarea cols="52" rows="10" v-model="state.newBug.description"></textarea>
+                <textarea class="textarea-padding" cols="52" rows="10" v-model="state.newBug.description"></textarea>
                 <input type="text"
                        class="form-control"
                        aria-describedby="helpId"
@@ -92,6 +92,10 @@ export default {
 
 .add-bug-border{
   border: black solid 1px;
+}
+
+.textarea-padding{
+  padding: 1px;
 }
 
 .bg-form{
